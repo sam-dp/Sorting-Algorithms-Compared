@@ -4,14 +4,17 @@ import java.awt.*;
 
 class main {
 
-    public int arraySize;
-    public float[] array = new float[arraySize];
+    public static int arraySize;
+    public static float[] array = new float[arraySize];
 
     public static void main (String[] args) {
-        
+
     }
 
     public float[] shuffle(float[] array)  {
+        for(int i = 0; i < array.length; i++) {
+            
+        }
         return array;
         
     }
@@ -31,7 +34,7 @@ class main {
         
     }
 
-    public float[] bubbleSort(float[] array)  {
+    public static float[] bubbleSort(float[] array)  {
         int arrayLength = array.length;
         for (int i = 0; i < arrayLength - 1; i++) {
             for (int j = 0; j < arrayLength - i - 1; j++) {
