@@ -66,6 +66,7 @@ class main {
     }
 
 
+
     //////////////////
     // SORT METHODS //
     //////////////////
@@ -79,19 +80,20 @@ class main {
     }
 
     // Bubble Sort
-    public static int[] bubbleSort(int[] array)  {
-        int arrayLength = array.length;
+    public static void bubbleSort()  {
+        int[] cloneArr = array;
+        int arrayLength = cloneArr.length;
+
         for (int i = 0; i < arrayLength - 1; i++) {
             for (int j = 0; j < arrayLength - i - 1; j++) {
-                if (array[j] > array[j + 1]) {
+                if (cloneArr[j] > cloneArr[j + 1]) {
                     // swap arr[j+1] and arr[j]
-                    int temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
+                    int temp = cloneArr[j];
+                    cloneArr[j] = cloneArr[j + 1];
+                    cloneArr[j + 1] = temp;
                 }
             }
         }
-        return array;
     }
 
     // Merge Sort
