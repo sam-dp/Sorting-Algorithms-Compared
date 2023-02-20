@@ -22,15 +22,6 @@ class main {
 
         
     }
-
-    static void printArray(int arr[])
-    {
-        int n = arr.length;
-        for (int i = 0; i < n; ++i)
-            System.out.print(arr[i] + " ");
-        System.out.println();
-    }
-
     
 
     public static void printMap() {
@@ -45,8 +36,8 @@ class main {
 
     // Calls all sort methods to populate map
     public static void callSorts() {
-        bubbleSort();
         mergeSort();
+        bubbleSort();
         selectionSort();
         quickSort();
     }
