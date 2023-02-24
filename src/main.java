@@ -1,41 +1,61 @@
+
+// Sam Park
+// February 2023
+
+// Imports
 import java.util.*;
-import javax.swing.*;
-import java.awt.*;
 import java.time.Duration;
 import java.time.Instant;
 
-class main {
 
-    public static int[] array;
-    public static Map<String, Long> sortMap = new HashMap<>();
-    public static boolean cont = true;
+class Main {
+
+    // Initial array
+    private static int[] array;
+
+    // Map stores sort name and runtime in millliseconds
+    private static Map<String, Long> sortMap = new HashMap<>();
+
+    // Continue programb bool
+    private static boolean doContinue = true;
 
     public static void main (String[] args) {
-        while(cont) {
+
+        // While user continues
+        while(doContinue) {
             userDialogue();
             shuffle();
             callSorts();
             printMap();
-
         }
-        
 
-        
     }
     
+    // Prints formatted table of Sort results
+    private static void printMap() {
+        String leftAlignFormat = "| %-35s | %-12d |%n";
 
-    public static void printMap() {
+        System.out.print("\033[33m\n");
+        System.out.format("|================== Sort & Runtime ==================|%n");
+        System.out.print("\033[34m");
+        System.out.format("+-------------------------------------+--------------+%n");
+        System.out.format("| Sort Name                           | Runtime (ms) |%n");
+        System.out.format("+-------------------------------------+--------------+%n");
+        System.out.print("\033[0m");
+
         for(Map.Entry<String, Long> element : sortMap.entrySet()) {
-            String key = element.getKey();
+            String key = element.getKey().trim();
             long value = element.getValue();
-            System.out.printf("%s %d ms", key, value);
-            System.out.println();
+
+            System.out.printf(leftAlignFormat, key, value);
+            System.out.format("+-------------------------------------+--------------+%n");
+
         }
         
     }
 
     // Calls all sort methods to populate map
-    public static void callSorts() {
+    private static void callSorts() {
         mergeSort();
         bubbleSort();
         selectionSort();
@@ -43,14 +63,26 @@ class main {
     }
 
     // Assigns array length
-    public static void userDialogue() {
+    private static void userDialogue() {
+
+        // Scanner and temporary string for user input
         Scanner sc = new Scanner(System.in);
         String userInput = "";
+
+        // If user input is an integer, start dialogue
         while (!isInteger(userInput)) {
-            System.out.print("\nType quite exit program.\nEnter size of array: ");
+            
+            System.out.print("\nThis program prompts for an array size, then shuffles \nand sorts an array of this size. The compiled time of each sort is displayed.\n");
+            System.out.print("\033[31m");
+            System.out.print("(Type \"quit\" to exit program.)\n");
+            System.out.print("\033[0m");
+            System.out.print("\nEnter size of array: ");
+            
             userInput = sc.next();
+            
+            // Quit, invalid, and valid input cases
             if(userInput.toUpperCase().equals("QUIT")) {
-                cont = false;
+                doContinue = false;
                 System.exit(0);
             }
             else if (isInteger(userInput) == false) {
@@ -61,10 +93,14 @@ class main {
             }
         }
 
+        // close scanner
+        sc.close();
+        
+
     }
 
     // Checks if a string represents an integer
-    public static boolean isInteger(String string) {
+    private static boolean isInteger(String string) {
         if (string == null) {
             return false;
         }
@@ -89,7 +125,7 @@ class main {
     }
 
     // Fills array with random values
-    public static void shuffle() {
+    private static void shuffle() {
         Random random = new Random();
         for (int i = 0; i < array.length; i++) {
             array[i] = random.nextInt(1001) + 1;
@@ -105,7 +141,7 @@ class main {
 
 
     // Bubble Sort
-    public static void bubbleSort() {
+    private static void bubbleSort() {
         int[] cloneArr = array;
         int arrayLength = cloneArr.length;
 
@@ -129,7 +165,7 @@ class main {
 
 
     // Merge Sort
-    public static void mergeSort() {
+    private static void mergeSort() {
         int[] cloneArr = array;
         int arrayLength = cloneArr.length;
         Instant start = java.time.Instant.now();
@@ -141,7 +177,7 @@ class main {
         sortMap.put("Merge Sort", duration.toMillis());
     }
 
-    public static void merge(int arr[], int l, int m, int r)
+    private static void merge(int arr[], int l, int m, int r)
     {
         // Find sizes of two subarrays to be merged
         int n1 = m - l + 1;
@@ -193,7 +229,7 @@ class main {
   
     // Main function that sorts arr[l..r] using
     // merge()
-    public static void mergeSorter(int arr[], int l, int r)
+    private static void mergeSorter(int arr[], int l, int r)
     {
         if (l < r) {
             // Find the middle point
@@ -211,7 +247,7 @@ class main {
 
 
     // Selection Sort
-    public static void selectionSort() {
+    private static void selectionSort() {
         int[] cloneArr = array;
         int arrayLength = cloneArr.length;
         Instant start = java.time.Instant.now();
@@ -238,7 +274,7 @@ class main {
 
 
     // Quick Sort
-    public static void quickSort() {
+    private static void quickSort() {
         int[] cloneArr = array;
         int arrayLength = cloneArr.length;
         Instant start = java.time.Instant.now();
@@ -250,63 +286,45 @@ class main {
         sortMap.put("Quick Sort", duration.toMillis());
     }
 
-    // A utility function to swap two elements
-    static void swap(int[] arr, int i, int j)
+    // Swap elements of array
+    private static void swap(int[] arr, int i, int j)
     {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
  
-    /* This function takes last element as pivot, places
-       the pivot element at its correct position in sorted
-       array, and places all smaller (smaller than pivot)
-       to left of pivot and all greater elements to right
-       of pivot */
-    static int partition(int[] arr, int low, int high)
+    // Pivot becomes last element, places pivot, and moves smaller elements to the left
+    // and greater elements to the right
+    private static int partition(int[] arr, int start, int end)
     {
  
-        // pivot
-        int pivot = arr[high];
+        // Pivot
+        int pivot = arr[end];
+        int i = (start - 1);
  
-        // Index of smaller element and
-        // indicates the right position
-        // of pivot found so far
-        int i = (low - 1);
+        for (int j = start; j <= end - 1; j++) {
  
-        for (int j = low; j <= high - 1; j++) {
- 
-            // If current element is smaller
-            // than the pivot
+            // If current element is smaller than the pivot
             if (arr[j] < pivot) {
  
-                // Increment index of
-                // smaller element
+                // Increment index of the smaller element by 1
                 i++;
                 swap(arr, i, j);
             }
         }
-        swap(arr, i + 1, high);
+        swap(arr, i + 1, end);
         return (i + 1);
     }
  
-    /* The main function that implements QuickSort
-              arr[] --> Array to be sorted,
-              low --> Starting index,
-              high --> Ending index
-     */
-    static void quickSorter(int[] arr, int low, int high)
+    // Primary quickSort helper
+    private static void quickSorter(int[] arr, int start, int end)
     {
-        if (low < high) {
- 
-            // pi is partitioning index, arr[p]
-            // is now at right place
-            int pi = partition(arr, low, high);
- 
-            // Separately sort elements before
-            // partition and after partition
-            quickSorter(arr, low, pi - 1);
-            quickSorter(arr, pi + 1, high);
+        if (start < end) {
+
+            int pi = partition(arr, start, end);
+            quickSorter(arr, start, pi - 1);
+            quickSorter(arr, pi + 1, end);
         }
     }
 
