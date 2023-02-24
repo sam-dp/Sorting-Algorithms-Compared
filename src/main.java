@@ -87,7 +87,7 @@ class Main {
                 System.exit(0);
             }
             else if (isInteger(userInput) == false || Integer.parseInt(userInput) < 1) {
-                System.out.println("Invalid Input!\n");
+                System.out.println("Invalid Input!");
                 userInput = "";
             } else {
                 array = new int[Integer.parseInt(userInput)];
