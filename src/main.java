@@ -83,9 +83,10 @@ class Main {
             // Quit, invalid, and valid input cases
             if(userInput.toUpperCase().equals("QUIT")) {
                 doContinue = false;
+                System.out.println();
                 System.exit(0);
             }
-            else if (isInteger(userInput) == false) {
+            else if (isInteger(userInput) == false || Integer.parseInt(userInput) < 1) {
                 System.out.println("Invalid Input!\n");
                 userInput = "";
             } else {
