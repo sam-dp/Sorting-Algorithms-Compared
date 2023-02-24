@@ -16,7 +16,7 @@ class Main {
     // Map stores sort name and runtime in millliseconds
     private static Map<String, Long> sortMap = new HashMap<>();
 
-    // Continue programb bool
+    // Continue program bool
     private static boolean doContinue = true;
 
     public static void main (String[] args) {
@@ -31,7 +31,7 @@ class Main {
 
     }
     
-    // Prints formatted table of Sort results
+    // Prints formatted table of sort results
     private static void printMap() {
         String leftAlignFormat = "| %-35s | %-12d |%n";
 
