@@ -92,11 +92,7 @@ class Main {
                 array = new int[Integer.parseInt(userInput)];
             }
         }
-
-        // close scanner
-        sc.close();
-        
-
+    
     }
 
     // Checks if a string represents an integer
@@ -134,11 +130,9 @@ class Main {
     }
 
 
-
     //////////////////
     // SORT METHODS //
     //////////////////
-
 
     // Bubble Sort
     private static void bubbleSort() {
@@ -177,30 +171,30 @@ class Main {
         sortMap.put("Merge Sort", duration.toMillis());
     }
 
-    private static void merge(int arr[], int l, int m, int r)
-    {
-        // Find sizes of two subarrays to be merged
-        int n1 = m - l + 1;
-        int n2 = r - m;
+    private static void merge(int arr[], int l, int m, int r) {
+        // Sizes of subarrays
+        int sub1 = m - l + 1;
+        int sub2 = r - m;
   
-        /* Create temp arrays */
-        int L[] = new int[n1];
-        int R[] = new int[n2];
+        // Temporary arrays
+        int L[] = new int[sub1];
+        int R[] = new int[sub2];
   
-        /*Copy data to temp arrays*/
-        for (int i = 0; i < n1; ++i)
+        // Clone to temporary arrays
+        for (int i = 0; i < sub1; ++i) {
             L[i] = arr[l + i];
-        for (int j = 0; j < n2; ++j)
+        }
+
+        for (int j = 0; j < sub2; ++j) {
             R[j] = arr[m + 1 + j];
+        }
   
-        /* Merge the temp arrays */
-  
-        // Initial indexes of first and second subarrays
+        // Initial indexes of subarrays
         int i = 0, j = 0;
   
         // Initial index of merged subarray array
         int k = l;
-        while (i < n1 && j < n2) {
+        while (i < sub1 && j < sub2) {
             if (L[i] <= R[j]) {
                 arr[k] = L[i];
                 i++;
@@ -212,25 +206,23 @@ class Main {
             k++;
         }
   
-        /* Copy remaining elements of L[] if any */
-        while (i < n1) {
+        // Copy rest of L[]
+        while (i < sub1) {
             arr[k] = L[i];
             i++;
             k++;
         }
   
-        /* Copy remaining elements of R[] if any */
-        while (j < n2) {
+        // Copy rest of R[]
+        while (j < sub2) {
             arr[k] = R[j];
             j++;
             k++;
         }
     }
   
-    // Main function that sorts arr[l..r] using
-    // merge()
-    private static void mergeSorter(int arr[], int l, int r)
-    {
+    // Primary mergeSort helper
+    private static void mergeSorter(int arr[], int l, int r) {
         if (l < r) {
             // Find the middle point
             int m = l + (r - l) / 2;
@@ -243,7 +235,6 @@ class Main {
             merge(arr, l, m, r);
         }
     }
-
 
 
     // Selection Sort
@@ -287,8 +278,7 @@ class Main {
     }
 
     // Swap elements of array
-    private static void swap(int[] arr, int i, int j)
-    {
+    private static void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
@@ -296,8 +286,7 @@ class Main {
  
     // Pivot becomes last element, places pivot, and moves smaller elements to the left
     // and greater elements to the right
-    private static int partition(int[] arr, int start, int end)
-    {
+    private static int partition(int[] arr, int start, int end) {
  
         // Pivot
         int pivot = arr[end];
@@ -318,10 +307,8 @@ class Main {
     }
  
     // Primary quickSort helper
-    private static void quickSorter(int[] arr, int start, int end)
-    {
+    private static void quickSorter(int[] arr, int start, int end) {
         if (start < end) {
-
             int pi = partition(arr, start, end);
             quickSorter(arr, start, pi - 1);
             quickSorter(arr, pi + 1, end);
